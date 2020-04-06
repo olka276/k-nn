@@ -9,11 +9,20 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="19*"/>
-            <ColumnDefinition Width="139*"/>
-            <ColumnDefinition Width="634*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="624*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="308,61,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Label Name ="nums" Content="nums" Grid.Column="1" HorizontalAlignment="Left" Margin="43,110,0,0" VerticalAlignment="Top" Height="208" Width="680" Grid.ColumnSpan="2"/>
+        <Button Content="Zatwierdź" Grid.Column="3" HorizontalAlignment="Left" Margin="305.5,261,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click" Height="20"/>
+        <Label Content="Podaj liczbę k&#xD;&#xA;" Grid.Column="2" HorizontalAlignment="Left" Margin="63,145,0,0" VerticalAlignment="Top" Width="90" Height="26" Grid.ColumnSpan="2"/>
+        <TextBox Name="kValue" Grid.Column="3" HorizontalAlignment="Left" Height="24" Margin="8.5,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52" TextChanged="KValue_TextChanged"/>
+        <Label Content="Podaj właściwiości obiektu do&#xD;&#xA;decyzji oddzielając wartości spacją" Grid.Column="2" HorizontalAlignment="Left" Margin="63,185,0,0" VerticalAlignment="Top" Height="44" Width="202" Grid.ColumnSpan="2"/>
+        <TextBox Name="newValues" Grid.Column="3" HorizontalAlignment="Left" Height="30" Margin="120.5,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261" TextChanged="TextBox_TextChanged"/>
+        <Label Content="Obiekt zaklasyfikowany do klasy:" Grid.Column="2" HorizontalAlignment="Left" Margin="63,328,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Name="decision" Content="Kliknij przycisk zatwierdź" Grid.Column="3" HorizontalAlignment="Left" Margin="120.5,328,0,0" VerticalAlignment="Top"/>
+        <Label Content="Wybierz metrykę" Grid.Column="2" HorizontalAlignment="Left" Margin="63,99,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+
+        <Label Content="Wczytaj plik txt z próbkami" Grid.Column="2" HorizontalAlignment="Left" Margin="63,53,0,0" VerticalAlignment="Top" Width="164" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
