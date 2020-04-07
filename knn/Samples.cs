@@ -99,8 +99,7 @@ namespace knn
                     temp = temp.Replace('.', ',');
                     temp = temp.Trim();
                     num = Convert.ToDouble(temp);
-                    attr.Add(num);
-                    temp = "";
+                    attr.Add(num);temp = "";
                 }
                 else
                 {
@@ -149,8 +148,9 @@ namespace knn
             return value;
         }
 
-        public double Classify(Element myObject, double k)
+        public double? Classify(Element myObject, double k)
         {
+
             string temp = "";
             double distance;
             Dictionary<double, List<double>> classAndListOfDistance = new Dictionary<double, List<double>>();
@@ -173,34 +173,45 @@ namespace knn
            
 
             Dictionary<double, double> results = new Dictionary<double, double>();
-
-            List<double> besties = new List<double>();
+            double? minValueKey = null;
+            List<double> list = new List<double>();
             List<double> sorted = new List<double>();
             double sum=0;
+            double minValue=0;
             foreach (KeyValuePair<double, List<double>> pair in classAndListOfDistance)
             {
-                
-                sorted = sort(pair.Value);
-               
-                for (int i = 0; i < k; i++)
-                {
-                    sum += sorted[i];
-                }
-                besties.Add(sum);
-            }
-
-            foreach (KeyValuePair<double, List<double>> pair in sorted)
-            {
-                temp += pair.Key + " -> ";
+              
                 foreach (double elem in pair.Value)
                 {
-                    if ;
+                    list.Add(elem);
+                    sort(list);
                 }
-                temp += '\n';
+
+                for (int i= 0; i<k; i++)
+                {
+                    sum += list[i];
+                }
+
+                results[pair.Key] = sum;
+                minValue = sum;
+                sum = 0;
+                list.Clear();
+                
+                
+            }
+            foreach(KeyValuePair<double,double> pair in results)
+            {
+                if(minValue>pair.Value)
+                {
+                    minValue = pair.Value;
+                    minValueKey = pair.Key;
+                }
+                temp += pair.Key + " " + pair.Value + "\n";
             }
 
+            
 
-
+            return minValueKey;
         }
 
 

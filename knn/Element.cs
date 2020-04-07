@@ -40,7 +40,7 @@ namespace knn
 
                         for (int i = 0; i < obj1.Attributes.Count; i++)
                         {
-                            value += Math.Pow((obj1.Attributes[i] - obj2.Attributes[i]), 2);
+                            value += distance(obj1.Attributes[i], obj2.Attributes[i]);
                         }
 
                         value = Math.Sqrt(value);
@@ -49,5 +49,16 @@ namespace knn
             }
             return Math.Round(value, 2);
         }
+
+        public static double distance(double a, double b)
+        {
+            double value = 0;
+            value += Math.Pow((a - b), 2);
+            value = Math.Sqrt(value);
+
+            return Math.Round(value, 2);
+        }
     }
+
+    
 }

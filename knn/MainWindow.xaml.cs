@@ -41,22 +41,78 @@ namespace knn
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-
+            string k = kValue.Text;
+           
+            alert.Content = "";
+            decision.Content = "";
             Samples sampel = Samples.GetSamples("iris.txt");
             string newObject = newValues.Text+' ';
 
-            string temp = "";
+            if (String.IsNullOrEmpty(k))
+            {
+                alert.Content = "Podaj liczbę k";
+            }
 
-            List<double> attr = new List<double>();
-            attr = Samples.fromStringToList(newObject);
-   
-            Element myObject = new Element(attr);
+            else {
+                double klasyf = Convert.ToDouble(kValue.Text);
+                if (String.IsNullOrEmpty(newObject.Trim()))
+                {
+                    alert.Content = "Nie podano atrybutów!";
+                    decision.Content = "";
+                }
 
-            
+                else
+                {
+                    double countAttributes = 0;
+                    List<double> attr = new List<double>();
+                    attr = Samples.fromStringToList(newObject);
 
-            decision.Content = sampel.Classify(myObject, Convert.ToDouble(kValue.Text));
+                    foreach (Element elem in sampel.Objects)
+                    {
+                        countAttributes = elem.Attributes.Count;
+                    }
+
+                    if (attr.Count != countAttributes)
+                    {
+                        alert.Content = "Podano nieprawidłową ilość atrybutów! Podaj " + countAttributes + " atrybutów!";
+                    }
+
+                    else
+                    {
+
+                        Element myObject = new Element(attr);
+                        double? sol = sampel.Classify(myObject, klasyf);
+                        decision.Content = sol;
+                    }
+
+                }
+            }
         }
 
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            Samples sampel = Samples.GetSamples("iris.txt");
+            double? result = 0;
+            double accuracyGood = 0;
+            double accuracyBad = 0;
+            foreach (Element elem in sampel.Objects)
+            {
+                result = sampel.Classify(elem, elem.Attributes.Count);
+                if (result==elem.Decision)
+                {
+                    accuracyGood++;
+                }
+                else
+                {
+                    accuracyBad++;
+                }
+            }
+
+            double accuracyWhole = 0;
+
+            accuracyWhole = accuracyGood / (accuracyGood + accuracyBad)*100;
+
+            accuracy.Content = "Trafność metryki: " + Math.Round(accuracyWhole,2).ToString()+ "%";
+        }
     }
 }
