@@ -45,6 +45,26 @@ namespace knn
 
                         value = Math.Sqrt(value);
                         break;
+
+                    case "manhattan":
+
+                        for (int i=0; i < obj1.Attributes.Count; i++)
+                        {
+                            value += Math.Abs(obj1.Attributes[i] - obj2.Attributes[i]);
+                        }
+                        break;
+
+                    case "czebyszewa":
+                        double MaxValue = 0;
+                        for (int i=0; i<obj1.Attributes.Count; i++)
+                        {
+                            value = Math.Abs(obj1.Attributes[i] - obj2.Attributes[i]);
+                            if (value>MaxValue)
+                            {
+                                value = MaxValue;
+                            }
+                        }
+                        break;
                 }
             }
             return Math.Round(value, 2);

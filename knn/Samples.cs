@@ -148,7 +148,7 @@ namespace knn
             return value;
         }
 
-        public double? Classify(Element myObject, double k)
+        public double? Classify(Element myObject, double k, string metryka)
         {
 
             string temp = "";
@@ -157,17 +157,18 @@ namespace knn
 
             foreach (Element elem in Objects)
             {
-                distance = Element.distance("euklides", elem, myObject);
+              
+                    distance = Element.distance(metryka, elem, myObject);
 
-                if (classAndListOfDistance.ContainsKey(elem.Decision))
-                {
-                    classAndListOfDistance[elem.Decision].Add(distance);
-                }
-                else
-                {
-                    classAndListOfDistance.Add(elem.Decision, new List<double>());
-                    classAndListOfDistance[elem.Decision].Add(distance);
-                }
+                    if (classAndListOfDistance.ContainsKey(elem.Decision))
+                    {
+                        classAndListOfDistance[elem.Decision].Add(distance);
+                    }
+                    else
+                    {
+                        classAndListOfDistance.Add(elem.Decision, new List<double>());
+                        classAndListOfDistance[elem.Decision].Add(distance);
+                    }
             }
 
            

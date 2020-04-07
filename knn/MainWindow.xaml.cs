@@ -37,16 +37,20 @@ namespace knn
 
         }
 
-
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            allNums.Content += newValue.Text + " ";
+            newValue.Text = "";
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string k = kValue.Text;
-           
+            string metryka = (metric.SelectedItem as ComboBoxItem).Content.ToString();
             alert.Content = "";
             decision.Content = "";
             Samples sampel = Samples.GetSamples("iris.txt");
-            string newObject = newValues.Text+' ';
+            string newObject = allNums.Content.ToString();
 
             if (String.IsNullOrEmpty(k))
             {
@@ -81,7 +85,7 @@ namespace knn
                     {
 
                         Element myObject = new Element(attr);
-                        double? sol = sampel.Classify(myObject, klasyf);
+                        double? sol = sampel.Classify(myObject, klasyf, metryka);
                         decision.Content = sol;
                     }
 
@@ -91,13 +95,16 @@ namespace knn
 
         private void Test_Click(object sender, RoutedEventArgs e)
         {
+
             Samples sampel = Samples.GetSamples("iris.txt");
             double? result = 0;
             double accuracyGood = 0;
+            string metryka = (metric.SelectedItem as ComboBoxItem).Content.ToString();
             double accuracyBad = 0;
             foreach (Element elem in sampel.Objects)
+
             {
-                result = sampel.Classify(elem, elem.Attributes.Count);
+                result = sampel.Classify(elem, elem.Attributes.Count, metryka);
                 if (result==elem.Decision)
                 {
                     accuracyGood++;
@@ -112,7 +119,10 @@ namespace knn
 
             accuracyWhole = accuracyGood / (accuracyGood + accuracyBad)*100;
 
+           // accuracy.Content = metryka;
             accuracy.Content = "Trafność metryki: " + Math.Round(accuracyWhole,2).ToString()+ "%";
         }
+
+        
     }
 }
